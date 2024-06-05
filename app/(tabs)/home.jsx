@@ -1,39 +1,41 @@
-import { View, Text, FlatList, Image, RefreshControl } from "react-native";
-import React, { useState } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  RefreshControl,
+  Alert,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
 import SearchInput from "../../components/SearchInput";
 import Trending from "../../components/Trending";
 import EmptySate from "../../components/EmptySate";
-
-const placeHolder = [
-  { id: 1, data: `hello this is data from id 1` },
-  { id: 2, data: `hello this is data from id 2` },
-  { id: 3, data: `hello this is data from id 3` },
-  { id: 4, data: `hello this is data from id 4` },
-];
+import VideoCard from "../../components/VideoCard";
+import useSupabase from "../../lib/useSupabase";
+import { placeHolder, exHolder } from "../../testing";
 
 const Home = () => {
+  const { data: posts, refetch } = useSupabase(exHolder);
+  // console.log(posts)
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = async () => {
     setRefreshing(true);
     //re call videos -> if any new videos appeared
+    await refetch();
     setRefreshing(false);
   };
+
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
-        data={placeHolder}
-        // data={[]}
+        data={posts}
         keyExtractor={(item) => {
           item.$id;
         }}
-        renderItem={({ item }) => (
-          <Text className="text-3xl text-white">
-            {item.id}: {item.data}
-          </Text>
-        )}
+        renderItem={({ item }) => <VideoCard video={item} />}
         ListHeaderComponent={() => (
           <View className="my-6 px-4 space-y-6">
             <View className="justify-between items-start flex-row mb-6">
