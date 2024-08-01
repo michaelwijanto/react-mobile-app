@@ -18,7 +18,6 @@ import { placeHolder, exHolder } from "../../testing";
 
 const Home = () => {
   const { data: posts, refetch } = useSupabase(exHolder);
-  // const {data: latestPosts } = useSupabase(getLatestPosts)
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = async () => {
@@ -32,9 +31,7 @@ const Home = () => {
     <SafeAreaView className="bg-primary h-full">
       <FlatList
         data={posts}
-        keyExtractor={(item) => {
-          item.$id;
-        }}
+        keyExtractor={(item) => item.$id}
         renderItem={({ item }) => <VideoCard video={item} />}
         ListHeaderComponent={() => (
           <View className="my-6 px-4 space-y-6">
@@ -56,7 +53,6 @@ const Home = () => {
               </View>
             </View>
             <SearchInput />
-
             <View className="w-full flex-1 pt-5 pb-8">
               <Text className="text-gray-100 text-lg font-pregular mb-3">
                 Latest Videos
