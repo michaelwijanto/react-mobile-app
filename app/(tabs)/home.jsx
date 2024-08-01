@@ -18,7 +18,7 @@ import { placeHolder, exHolder } from "../../testing";
 
 const Home = () => {
   const { data: posts, refetch } = useSupabase(exHolder);
-  // console.log(posts)
+  // const {data: latestPosts } = useSupabase(getLatestPosts)
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = async () => {
