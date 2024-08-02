@@ -13,11 +13,12 @@ import SearchInput from "../../components/SearchInput";
 import Trending from "../../components/Trending";
 import EmptySate from "../../components/EmptySate";
 import VideoCard from "../../components/VideoCard";
-import useSupabase from "../../lib/useSupabase";
+import useAppwrite from "../../lib/useAppwrite";
 import { placeHolder, exHolder } from "../../testing";
+import { getAllPosts } from "../../lib/appwrite";
 
 const Home = () => {
-  const { data: posts, refetch } = useSupabase(exHolder);
+  const { data: posts, refetch } = useAppwrite(getAllPosts);
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = async () => {
@@ -30,7 +31,7 @@ const Home = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
-        data={posts}
+        data={posts ?? []}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => <VideoCard video={item} />}
         ListHeaderComponent={() => (
@@ -57,7 +58,7 @@ const Home = () => {
               <Text className="text-gray-100 text-lg font-pregular mb-3">
                 Latest Videos
               </Text>
-              <Trending posts={placeHolder} />
+              <Trending posts={placeHolder ?? []} />
             </View>
           </View>
         )}

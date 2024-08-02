@@ -4,8 +4,6 @@ import { useFonts } from "expo-font";
 import { useEffect } from "react";
 import GlobalProvider from "../context/GlobalProvider";
 
-console.log("logging", GlobalProvider);
-
 SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
