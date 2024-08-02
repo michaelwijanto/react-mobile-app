@@ -14,11 +14,12 @@ import Trending from "../../components/Trending";
 import EmptySate from "../../components/EmptySate";
 import VideoCard from "../../components/VideoCard";
 import useAppwrite from "../../lib/useAppwrite";
-import { placeHolder, exHolder } from "../../testing";
-import { getAllPosts } from "../../lib/appwrite";
+// import { placeHolder, exHolder } from "../../testing";
+import { getAllPosts, getLatestPost } from "../../lib/appwrite";
 
 const Home = () => {
   const { data: posts, refetch } = useAppwrite(getAllPosts);
+  const { data: latestPosts } = useAppwrite(getLatestPost);
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = async () => {
@@ -58,7 +59,7 @@ const Home = () => {
               <Text className="text-gray-100 text-lg font-pregular mb-3">
                 Latest Videos
               </Text>
-              <Trending posts={placeHolder ?? []} />
+              <Trending posts={latestPosts ?? []} />
             </View>
           </View>
         )}
