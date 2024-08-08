@@ -1,21 +1,11 @@
-import {
-  View,
-  Text,
-  FlatList,
-  Image,
-  RefreshControl,
-  Alert,
-} from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, Text, FlatList } from "react-native";
+import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { images } from "../../constants";
 import SearchInput from "../../components/SearchInput";
-import Trending from "../../components/Trending";
 import EmptySate from "../../components/EmptySate";
 import VideoCard from "../../components/VideoCard";
 import useAppwrite from "../../lib/useAppwrite";
-// import { placeHolder, exHolder } from "../../testing";
-import { getAllPosts, getLatestPost, searchPost } from "../../lib/appwrite";
+import { searchPost } from "../../lib/appwrite";
 import { useLocalSearchParams } from "expo-router";
 
 const Search = () => {
